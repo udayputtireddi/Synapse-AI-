@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Playfair Display", serif;
+}
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #0a0a0b;
+    --card: #f8f9fa;
+    --card-foreground: #0a0a0b;
+    --border: #e5e7eb;
+    --muted: #f3f4f6;
+    --muted-foreground: #6b7280;
+    --accent: #f3f4f6;
+    --accent-foreground: #111827;
+  }
+
+  .dark {
+    --background: #050505;
+    --foreground: #ffffff;
+    --card: #0a0a0b;
+    --card-foreground: #ffffff;
+    --border: rgba(255, 255, 255, 0.05);
+    --muted: rgba(255, 255, 255, 0.05);
+    --muted-foreground: rgba(255, 255, 255, 0.4);
+    --accent: rgba(255, 255, 255, 0.05);
+    --accent-foreground: #ffffff;
+  }
+
+  body {
+    @apply bg-[var(--background)] text-[var(--foreground)] antialiased transition-colors duration-300;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[var(--muted-foreground)]/20 rounded-full hover:bg-[var(--muted-foreground)]/30 transition-colors;
+  }
+}
+
+/* Data Row Hover Effect from Recipe 1 */
+.data-row {
+  @apply transition-all duration-200 cursor-pointer border-b border-[var(--border)];
+}
+
+.data-row:hover {
+  @apply bg-[var(--muted)]/50;
+}
+
+/* Glass Morphism */
+.glass {
+  @apply bg-[var(--card)]/80 backdrop-blur-xl border border-[var(--border)];
+}

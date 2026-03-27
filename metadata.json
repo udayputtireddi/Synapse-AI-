@@ -1,0 +1,5 @@
+{
+  "name": "Synapse AI",
+  "description": "AI Meeting Companion for intelligent transcription, action item extraction, and cross-meeting memory.",
+  "requestFramePermissions": ["microphone"]
+}
