@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import { createAIApp } from "./server/ai/app";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,6 +15,7 @@ async function startServer() {
   const app = express();
   const PORT = Number(process.env.PORT) || 3000;
 
+  app.use(createAIApp());
   app.use(express.json());
 
   // API: Get all meetings

@@ -115,3 +115,11 @@ For questions or issues, please open an issue on GitHub or contact the maintaine
 
 ---
 **Created with ❤️ by Uday Puttireddi**
+
+
+## AI backend security
+
+AI now uses an authenticated server endpoint; never put Gemini credentials in Vite
+environment variables. Backend deployment and secret rotation remain pending.
+See [setup, limits, compatibility and validation](docs/ai-backend-security.md).
+Next steps: review CI, configure the backend and approve a staged rollout.

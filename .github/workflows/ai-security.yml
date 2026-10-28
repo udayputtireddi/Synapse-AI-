@@ -1,0 +1,32 @@
+name: AI backend security
+on:
+  pull_request:
+  push:
+    branches: [fix/authenticated-ai-backend]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm install --ignore-scripts --no-audit --no-fund
+      - run: npm run test:ai
+      - run: npm run typecheck
+      - name: Compile server bundle
+        run: npx --yes esbuild@0.25.12 server.ts --bundle --platform=node --packages=external --format=esm --outfile=/tmp/synapse-server.mjs
+      - run: npm run build
+        env:
+          GEMINI_API_KEY: AI_SECRET_SENTINEL_NOT_FOR_BROWSER_72819
+          API_KEY: AI_SECRET_SENTINEL_NOT_FOR_BROWSER_72819
+          VITE_API_KEY: AI_SECRET_SENTINEL_NOT_FOR_BROWSER_72819
+          VITE_GEMINI_API_KEY: AI_SECRET_SENTINEL_NOT_FOR_BROWSER_72819
+      - run: npm run check:ai-bundle
+      - name: Export resolved lockfiles for review
+        if: always()
+        run: |
+          node -e "const fs=require('fs'); for(const p of ['package-lock.json','functions/package-lock.json']) if(fs.existsSync(p)) console.log('LOCKFILE '+p+' '+fs.readFileSync(p).toString('base64'));"
