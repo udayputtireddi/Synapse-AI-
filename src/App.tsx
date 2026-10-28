@@ -36,7 +36,7 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "./lib/utils";
-import { Meeting, Utterance, ProjectMemory } from "./types";
+import { Meeting, Utterance, ProjectMemory, ActionItem } from "./types";
 import { processMeetingTranscript, createMeetingChunks, getEmbedding, queryPastMeetings } from "./services/ai";
 import { v4 as uuidv4 } from "uuid";
 
@@ -1342,3 +1342,4 @@ export default function App() {
     </div>
   );
 }
+
