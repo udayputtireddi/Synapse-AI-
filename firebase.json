@@ -1,0 +1,12 @@
+{
+  "firestore": [
+    {
+      "database": "ai-security",
+      "rules": "firestore.ai.rules"
+    },
+    {
+      "database": "ai-security",
+      "rules": "firestore.ai.rules"
+    }
+  ]
+}

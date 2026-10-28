@@ -36,7 +36,7 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "./lib/utils";
-import { Meeting, Utterance, ProjectMemory } from "./types";
+import { Meeting, Utterance, ProjectMemory, ActionItem } from "./types";
 import { processMeetingTranscript, createMeetingChunks, getEmbedding, queryPastMeetings } from "./services/ai";
 import { v4 as uuidv4 } from "uuid";
 
@@ -407,7 +407,7 @@ export default function App() {
       setProcessingStep("");
     } catch (err) {
       console.error("Processing failed", err);
-      setError("Failed to process meeting. Check your GEMINI_API_KEY.");
+      setError(err instanceof Error ? err.message : "AI processing is temporarily unavailable.");
     } finally {
       setIsProcessing(false);
     }
@@ -454,8 +454,8 @@ export default function App() {
   const toggleTaskStatus = async (taskId: string) => {
     if (!selectedMeeting) return;
 
-    const updatedActionItems = selectedMeeting.insights.actionItems.map(item => 
-      item.id === taskId ? { ...item, status: item.status === "completed" ? "pending" : "completed" } : (item as ActionItem)
+    const updatedActionItems = selectedMeeting.insights.actionItems.map((item): ActionItem => 
+      item.id === taskId ? { ...item, status: item.status === "completed" ? "pending" : "completed" } : item
     );
 
     const updatedMeeting = {
@@ -1342,3 +1342,4 @@ export default function App() {
     </div>
   );
 }
+
