@@ -10,7 +10,7 @@ export function createAIApp() {
   const app = express();
   app.disable('x-powered-by');
   const adminApp = () => getApps()[0] || initializeApp({ projectId: process.env.AI_FIREBASE_PROJECT_ID });
-  app.use(express.json({ limit: '3mb', strict: true }));
+  app.use('/api/ai', express.json({ limit: '3mb', strict: true }));
   app.all('/api/ai', createHandler({
     verifyToken: token => getAuth(adminApp()).verifyIdToken(token, true),
     quota: async (uid, cost) => {
